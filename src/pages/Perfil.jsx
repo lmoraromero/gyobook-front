@@ -3,7 +3,11 @@ import Navegacion from "./Navegacion";
 
 export default function Libros(){
     return <>
-                <Navegacion />
-                <h1>Perfil 🥸</h1>
+                <section className="contenedor">
+                    <Navegacion />
+                    <section className="contenido">
+                        <h1>Perfil 👽</h1>
+                    </section>
+                </section>
             </>
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Contexto from "./Contexto"
+import "./style.css"
 
 //Importar las páginas para el router
 import Inicio from "./pages/Inicio"
@@ -50,6 +51,5 @@ export default function App() {
   return <Contexto.Provider value={{token, setToken, usuario, setUsuario}}>
             <RouterProvider router={router} />
           </Contexto.Provider>
-
 }
 
