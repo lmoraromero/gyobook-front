@@ -16,7 +16,8 @@ export default function Login(){
             <section className="contenedor">
                 <Navegacion />
                 <section className="contenido">
-                    <form onSubmit={evento => {
+                    <h1 className="titulo-form">¿De vuelta? ¡Entra y sigue compartiendo tus lecturas! ✨</h1>
+                    <form className="formulario" onSubmit={evento => {
                         evento.preventDefault()
                         
                         fetch("http://localhost:4000/login", {
@@ -51,7 +52,7 @@ export default function Login(){
                         <input type="submit" value="Entrar" />
                     </form>
                     <p className="mensaje">{ mensaje }</p>
-                    <p>
+                    <p className="texto">
                         ¿Aún no tienes cuenta? <Link to="/registro">¡Puedes registrarte aquí!</Link> 
                     </p>
                 </section>

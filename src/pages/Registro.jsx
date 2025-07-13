@@ -16,7 +16,8 @@ export default function Registro(){
             <section className="contenedor">
                 <Navegacion />
                 <section className="contenido">
-                    <form onSubmit={evento => {
+                    <h1 className="titulo-form">¿Nuevx por aquí? ¡Crea tu cuenta en un segundo! ✨</h1>
+                    <form className="formulario" onSubmit={evento => {
                         evento.preventDefault()
                         
                         fetch("http://localhost:4000/registro", {
@@ -51,7 +52,7 @@ export default function Registro(){
                         <input type="submit" value="Crear cuenta" />
                     </form>
                     <p className="mensaje">{ mensaje }</p>
-                    <p>
+                    <p className="texto">
                         ¿Ya tienes cuenta? <Link to="/login">¡Puedes iniciar sesión aquí!</Link> 
                     </p>
                 </section>
