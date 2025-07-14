@@ -6,7 +6,7 @@ import Contexto from "../Contexto"
 export default function Login(){
 
     let navigate = useNavigate()
-    let { setToken } = useContext(Contexto)
+    let { setToken, setUsuario } = useContext(Contexto)
 
     let [inputUsuario, setInputUsuario] = useState("")
     let [inputPassword, setInputPassword] = useState("")
@@ -33,8 +33,9 @@ export default function Login(){
                         .then(respuesta => {
                             if(respuesta.status == 200){
                                 return respuesta.json()
-                                    .then( ({token}) => {
+                                    .then( ({token, usuario, perfil}) => {
                                         setToken(token)
+                                        setUsuario({ usuario, perfil })
                                         navigate("/")
                                     })
                             }else if(respuesta.status == 401){

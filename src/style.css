@@ -174,8 +174,48 @@ body{
     text-decoration: underline;
 }
 
+/*PERFIL*/
 
-/* Keyframes de la sacudida */
+.saludo{
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
+    font-size: 2em;
+    color: var(--color-secundario);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.picture{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--color-principal);
+    box-shadow: 0 4px 8px rgba(101, 63, 143, 0.3);
+    object-fit: cover;
+    margin: 0 auto 30px auto;
+    display: block;
+}
+
+.logout{
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.logout:hover{
+    background-color: var(--color-boton-fondo-hover);
+}
+
+/*KEYFRAMES*/
 @keyframes shake {
     0%   { transform: translate(0, 0)   rotate(0deg);   }
     15%  { transform: translate(-3px, 0) rotate(-5deg); }
