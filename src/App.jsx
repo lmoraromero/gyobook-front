@@ -9,6 +9,7 @@ import Login from "./pages/Login"
 import Registro from "./pages/Registro"
 import Perfil from "./pages/Perfil"
 import Libros from "./pages/Libros"
+import Crear from "./pages/Crear"
 import Reviews from "./pages/Reviews"
 import Error404 from "./pages/Error404"
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path : "/libros",
     element : <Libros />,
+  },
+  {
+    path : "/libros/crear",
+    element : <Crear />,
   },
   {
     path : "/reviews",
