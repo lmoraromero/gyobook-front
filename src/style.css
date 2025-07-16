@@ -34,22 +34,25 @@ body{
     width: 96vw;
     height: calc(100vh - 40px);
     background-color: rgba(245, 245, 245, 0.8);
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
-    overflow: hidden;
     position: relative;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /*NAVEGACION Y CONTENIDO*/
 
 .navegacion{
     width: 200px;
+    height: 100%;
     background-color: var(--color-principal);
     color: var(--color-boton-texto);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 10px;
+    box-shadow: 3px 0 8px rgba(0, 0, 0, 0.15);
 }
 
 .navegacion .logo{
@@ -88,12 +91,12 @@ body{
 
 .contenido{
     width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     color: var(--color-texto);
-    overflow-y: auto;
 }
 
 /*INICIO*/
@@ -352,6 +355,94 @@ body{
 
 .addBook:hover{
     background-color: #e06fa6;
+}
+
+
+/*CREAR FICHA*/
+
+.titulo-ficha {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: left;
+    margin: 80px 0 10px 40px;
+    color: var(--color-secundario);
+}
+
+.ficha {
+    padding-top: 150px;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    padding-left: 20px;
+}
+
+.form-ficha {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 20px;
+    margin-top: 30px;
+}
+
+.form-ficha label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: var(--color-secundario);
+    font-size: 1.1em;
+}
+
+.form-ficha input[type="text"],
+.form-ficha input[type="file"] {
+    padding: 12px 16px;
+    font-size: 1em;
+    border: 2px solid var(--color-principal);
+    border-radius: 6px;
+    outline-offset: 2px;
+    transition: border-color 0.3s ease;
+    font-family: 'Comfortaa', cursive;
+}
+
+.form-ficha input[type="text"]:focus,
+.form-ficha input[type="file"]:focus {
+    border-color: var(--color-secundario);
+    background-color: #f9f5ff;
+}
+
+.form-ficha textarea[name="sinopsis"] {
+    font-size: 1.1em;         
+    padding: 10px 12px;
+    border: 2px solid var(--color-principal);
+    border-radius: 6px;
+    outline-offset: 2px;
+    transition: border-color 0.3s ease;
+    font-family: 'Comfortaa', cursive;
+    resize: vertical;         
+    min-height: 80px;          
+    max-width: 100%;
+    width: 100%;
+}
+
+.form-ficha textarea[name="sinopsis"]:focus {
+    border-color: var(--color-secundario);
+    background-color: #f9f5ff;
+}
+
+.form-ficha input[type="submit"] {
+    margin-bottom: 20px;
+    padding: 14px 0;
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+    font-weight: bold;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Comfortaa', cursive;
+}
+
+.form-ficha input[type="submit"]:hover {
+    background-color: var(--color-boton-fondo-hover);
 }
 
 
