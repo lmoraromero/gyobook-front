@@ -12,6 +12,7 @@ import Libros from "./pages/Libros"
 import Crear from "./pages/Crear"
 import Reviews from "./pages/Reviews"
 import ReviewsLibro from "./pages/ReviewsLibro"
+import ReviewsCrear from './pages/ReviewsCrear'
 import Error404 from "./pages/Error404"
 
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   { 
     path: "/reviews/:id_libro", 
     element: <ReviewsLibro /> 
+  },
+  { 
+    path: "/reviews/crear", 
+    element: <ReviewsCrear /> 
   },
   {
     path : "*",
