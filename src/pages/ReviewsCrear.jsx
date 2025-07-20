@@ -1,125 +1,92 @@
-import { useNavigate} from "react-router-dom"
-import { useState, useContext } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { useState, useContext, useEffect } from "react"
 import Navegacion from "./Navegacion"
 import Contexto from "../Contexto"
 
 export default function ReviewsCrear(){
 
-    let {token} = useContext(Contexto)
+    let {token, usuario} = useContext(Contexto)
     let navigate = useNavigate()
 
+    let {id_libro} = useParams()
+    let [libro, setLibro] = useState(null)
+    let [puntuacion, setPuntuacion] = useState("1")
+    let [decimal, setDecimal] = useState("00")
+    let [texto, setTexto] = useState("")
     let [mensaje, setMensaje] = useState("")
-    let [titulo, setTitulo] = useState("")
-    let [autor, setAutor] = useState("")
-    let [genero, setGenero] = useState("")
-    let [fecha, setFecha] = useState("")
-    let [paginas, setPaginas] = useState("")
-    let [sinopsis, setSinopsis] = useState("")
-    let [portada, setPortada] = useState(null)
+
+    useEffect(() => {
+        fetch(`http://localhost:4000/libro/${id_libro}`)
+        .then(respuesta => respuesta.json())
+        .then(libroData => {
+            setLibro(libroData[0]) 
+        })
+        .catch(() => {
+            setMensaje("No se pudo cargar el libro, inténtalo más tarde 😪")
+        })
+    }, [])
+
 
     return <>
                 <section className="contenedor">
                     <Navegacion />
                     <section className="contenido">
-                        <div className="ficha">
-                            <h2 className="titulo-ficha">Crear ficha del libro</h2>
-                            <p className="mensaje">{ mensaje }</p>
-                            <form className="form-ficha" onSubmit={evento => {
+                        <div className="review-box">
+                            <h2 className="titulo-ficha">Reseña para {libro ? libro.titulo : "..."}</h2>
+                            <p className="mensaje">{mensaje}</p>
+                            <form className="review-form" onSubmit={evento => {
                                 evento.preventDefault()
 
-                                //validación de los datos están completos  antes de enviar el formulario
-                                if(!titulo.trim() || !autor.trim() || !genero.trim() || !fecha.trim() || !paginas.trim() || !sinopsis.trim() || !portada){
-                                    setMensaje("🚨 Rellena todos los campos de la ficha.")
-                                    return
-                                }
+                                let puntuacionFinal = parseFloat(`${puntuacion}.${decimal}`) //transformar en float la puntuación 
 
-                                //validación de que las máginas es un número entero mayor a 0
-                                if(!Number.isInteger(Number(paginas)) || Number(paginas) <= 0){
-                                    setMensaje("🚨 El número de páginas debe ser un número válido y mayor a 0.")
-                                    return
-                                }
-
-                                //validación de que la fecha tenga formato AAA-MM-DD
-                                let regexFecha = /^\d{4}-\d{2}-\d{2}$/
-                                if(!regexFecha.test(fecha)){
-                                    setMensaje("🚨 La fecha debe tener el formato AAAA-MM-DD")
-                                    return
-                                }
-
-                                //FormData
-
-                                let datos = new FormData()
-                                datos.append("titulo", titulo)
-                                datos.append("autor", autor)
-                                datos.append("genero", genero)
-                                datos.append("fecha_publicacion", fecha)
-                                datos.append("paginas", paginas)
-                                datos.append("sinopsis", sinopsis)
-                                datos.append("portada", portada)
-
-                                //fetch
-                                fetch("http://localhost:4000/libro/nuevo", {
-                                    method: "POST",
-                                    body: datos,
-                                    headers: {
-                                        Authorization: "Bearer " + token,
+                                fetch("http://localhost:4000/reviews/nueva", {
+                                    method : "POST",
+                                    body : JSON.stringify({
+                                        puntuacion : puntuacionFinal,
+                                        id_usuario : usuario.id,
+                                        id_libro : id_libro,
+                                        texto : texto
+                                    }),
+                                    headers : {
+                                        "Content-Type": "application/json",
+                                        "Authorization": `Bearer ${token}`
                                     }
                                 })
                                 .then(respuesta => {
                                     if(respuesta.status == 201){
-                                        return respuesta.json()
-                                        .then(({id}) => {
-                                            navigate(`/reviews/${id}`)
-                                        })
-                                    } else if(respuesta.status == 400){
-                                        setMensaje("🚨 Rellena todos los campos de la ficha.")
-                                    } else if(respuesta.status == 422){
-                                        setMensaje("🚨 Alguno de los datos no es válido.")
-                                    } else{
+                                        navigate(`/reviews/${id_libro}`)
+                                    }else{
                                         setMensaje("Error inesperado. Inténtalo más tarde")
                                     }
                                 })
-                                .catch(error => {
-                                    setMensaje("Error al conectar con el servidor")
-                                })
+                                .catch((error) => {
+                                    setMensaje("Error al conectar con el servidor");
+                                });
+
+                                console.log("Reseña publicada 2")
                             }}>
-
-                                <label>
-                                    Título:
-                                    <input type="text" name="titulo" value={titulo}  onChange={ evento => setTitulo(evento.target.value) } />
+                                <div className="review-rating">
+                                    <label>
+                                    Puntuación: 
+                                    <select className="rating-select" value={puntuacion} onChange={evento => setPuntuacion(evento.target.value)}>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    . 
+                                    <select className="rating-select" value={decimal} onChange={evento => setDecimal(evento.target.value)}>
+                                        <option value="00">00</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                    </select>
+                                    estrellas ⭐
                                 </label>
-
-                                <label>
-                                    Autor:
-                                    <input type="text" name="autor" value={autor}  onChange={ evento => setAutor(evento.target.value) } />
-                                </label>
-
-                                <label>
-                                    Género:
-                                    <input type="text" name="genero" value={genero}  onChange={ evento => setGenero(evento.target.value) } />
-                                </label>
-
-                                <label>
-                                    Fecha de publicacion:
-                                    <input type="text" name="fecha_publicacion" placeholder="AAAA-MM-DD" value={fecha}  onChange={ evento => setFecha(evento.target.value) } />
-                                </label>
-
-                                <label>
-                                    Número de páginas:
-                                    <input type="text" name="paginas" value={paginas}  onChange={ evento => setPaginas(evento.target.value) } />
-                                </label>
-
-                                <label>
-                                    Sinopsis:
-                                    <textarea name="sinopsis" rows="5" value={sinopsis}  onChange={ evento => setSinopsis(evento.target.value) } />
-                                </label>
-
-                                <label>
-                                    Portada:
-                                    <input type="file" name="portada" onChange={ evento => setPortada(evento.target.files[0]) } />
-                                </label>
-
-                                <input type="submit" value="Crear" />
+                                </div>
+                                <textarea className="review-textarea" rows={6} placeholder="Escribe aquí tu reseña" value={texto} onChange={evento => setTexto(evento.target.value)}></textarea>
+                                <input className="review-submit" type="submit" value="Publicar" />
                             </form>
                         </div>
                     </section>

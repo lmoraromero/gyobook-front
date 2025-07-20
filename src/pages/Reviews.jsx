@@ -5,7 +5,7 @@ export default function Reviews(){
                 <section className="contenedor">
                     <Navegacion />
                     <section className="contenido">
-                        <h1>Reseñas 👀</h1>
+                        <h1>Mis Reseñas 👀</h1>
                     </section>
                 </section>
             </>

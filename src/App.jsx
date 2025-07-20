@@ -9,7 +9,7 @@ import Login from "./pages/Login"
 import Registro from "./pages/Registro"
 import Perfil from "./pages/Perfil"
 import Libros from "./pages/Libros"
-import Crear from "./pages/Crear"
+import CrearLibro from "./pages/CrearLibro"
 import Reviews from "./pages/Reviews"
 import ReviewsLibro from "./pages/ReviewsLibro"
 import ReviewsCrear from './pages/ReviewsCrear'
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path : "/libros/crear",
-    element : <Crear />,
+    element : <CrearLibro />,
   },
   {
     path : "/reviews",
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     element: <ReviewsLibro /> 
   },
   { 
-    path: "/reviews/crear", 
+    path: "/reviews/crear/:id_libro", 
     element: <ReviewsCrear /> 
   },
   {

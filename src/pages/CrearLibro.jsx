@@ -3,7 +3,7 @@ import { useState, useContext } from "react"
 import Navegacion from "./Navegacion"
 import Contexto from "../Contexto"
 
-export default function Crear(){
+export default function CrearLibro(){
 
     let {token} = useContext(Contexto)
     let navigate = useNavigate()

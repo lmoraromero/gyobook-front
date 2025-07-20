@@ -33,9 +33,9 @@ export default function Login(){
                         .then(respuesta => {
                             if(respuesta.status == 200){
                                 return respuesta.json()
-                                    .then( ({token, usuario, perfil}) => {
+                                    .then( ({token, id, usuario, perfil}) => {
                                         setToken(token)
-                                        setUsuario({ usuario, perfil })
+                                        setUsuario({ id, usuario, perfil })
                                         navigate("/")
                                     })
                             }else if(respuesta.status == 401){
