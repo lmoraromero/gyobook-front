@@ -47,6 +47,7 @@ body{
     text-align: center;
     color: var(--color-texto);
     overflow-y: auto;
+    box-sizing: border-box;
 }
 
 /*NAVEGACION Y CONTENIDO*/
@@ -497,15 +498,26 @@ body{
 
 /*RESEÑAS INDIVIDUALES POR LIBRO*/
 
+.reviewslibro .contenido{
+    justify-content: flex-start; 
+    padding: 20px;           
+    text-align: left;          
+}
+
 .libro-ficha{
     display: flex;
     gap: 30px;
     align-items: flex-start;
-    background-color: rgba(221, 208, 236, 0.514);
+    background-color: rgba(203, 162, 245, 0.315);
     margin-left: 20px;
+    margin-right: 10px;
+    margin-top: 20px;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(101, 63, 143, 0.15);
+    border-bottom: 2px solid var(--color-principal);
+    padding-bottom: 20px; 
+    margin-bottom: 30px;
 }
 
 .portada{
@@ -540,18 +552,33 @@ body{
     color: var(--color-principal);
 }
 
-.separador{
-    width: 100%;
-    height: 2px;
+.media{
+    margin: 20px 0;
+    text-align: left;
+}
+
+.media-puntuacion{
     background-color: var(--color-principal);
-    margin: 40px 0;
-    border-radius: 1px;
-    opacity: 0.6;
+    color: var(--color-boton-texto);
+    font-family: 'Comfortaa', cursive;
+    font-weight: 600;
+    font-size: 1em;
+    padding: 6px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(101, 63, 143, 0.25);
+    max-width: 250px;
+    margin: 15px auto;
+    user-select: none;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.media-puntuacion:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(101, 63, 143, 0.5);
 }
 
 .addReview{
-    align-self: flex-end;
-    margin-right: 40px;
     margin-bottom: 30px;
     padding: 12px 24px;
     background-color: #f7a1c4;;
@@ -567,6 +594,53 @@ body{
 
 .addReview:hover{
     background-color: #e06fa6;
+}
+
+.reviews{
+    max-width: 850px;
+    margin: 0 auto 40px;
+}
+
+.review{
+    margin-bottom: 24px;
+    padding: 12px 20px;
+    background-color: rgba(221, 208, 236, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(101, 63, 143, 0.15);
+    text-align: left;
+}
+
+.cabecera{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.review-foto{
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-principal);
+}
+
+.cabecera h3{
+    margin: 0;
+    color: var(--color-secundario);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.puntuacion{
+    margin: 10px 0 8px 0;
+    font-weight: bold;
+    color: var(--color-principal);
+}
+
+.review p:last-child{
+    margin-top: 0;
+    color: var(--color-texto);
+    line-height: 1.4;
 }
 
 /*CREAR RESEÑA*/

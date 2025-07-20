@@ -11,6 +11,7 @@ export default function ReviewsLibro(){
     let {id_libro} = useParams();
     let [libro, setLibro] = useState(null);
     let [mensaje, setMensaje] = useState("")
+    let [reviews, setReviews] = useState([])
 
     useEffect(() => {
         fetch(`http://localhost:4000/libro/${id_libro}`)
@@ -21,12 +22,27 @@ export default function ReviewsLibro(){
         .catch(() => {
             setMensaje("No se pudo cargar el libro, inténtalo más tarde 😪")
         })
+
+        fetch(`http://localhost:4000/reviews/${id_libro}`)
+        .then(respuesta => respuesta.json())
+        .then(data =>{
+            console.log("Datos reviews recibidos:", data);
+            setReviews(data)
+        })
+        .catch(() => {
+            setMensaje("No se pudieron cargar las reseñas, inténtalo más tarde 😪")
+        })
     }, [])
 
     let fecha = libro?.fecha_publicacion ? new Date(libro.fecha_publicacion).toLocaleDateString("es-ES") : "" //asegurarse de que está la fecha, crea un objeto js Date y usando .toLocaleDateString("es-ES"), hace que el formato sea legible DD//MM/AAAA
 
+    //hacer la media para ver la punuación media del libro. 
+    //.reduce() sirve para acumular un valor a partir de lso elementos de un array -> suma es el acumulador (por defecto inicia en 0) y review es cada una de las reseñas
+    //.toFixed(2) convierte el resultado en un número con dos decimales
+    let mediaPuntuacion = reviews.length > 0 ? (reviews.reduce((suma, review) => suma + parseFloat(review.puntuacion), 0) / reviews.length).toFixed(2) : null 
+
     return <>
-        <section className="contenedor">
+        <section className="contenedor reviewslibro">
             <Navegacion />
             <section className="contenido">
                 <div className="libro">
@@ -49,7 +65,13 @@ export default function ReviewsLibro(){
                         </div>
                     )}
                 </div>
-                <div className="separador"></div>
+                <div className="media">
+                    { mediaPuntuacion && (
+                    <div className="media-puntuacion">
+                        <h2>Puntuación media: {mediaPuntuacion} / 5 ⭐</h2>
+                    </div>
+                    )}
+                </div>
                 <div className="reviews">
                     {
                         token && (
@@ -58,7 +80,17 @@ export default function ReviewsLibro(){
                             }}>Añadir reseña</button>
                         )
                     }
-                    Aquí van las reseñas
+                    { reviews.length == 0 ? <p>Actualmente no hay reseñas</p> :
+                    reviews.map(review => 
+                        <div key={review.id} className="review">
+                            <div className="cabecera">
+                                <img src={review.perfil} alt={`Foto de perfil de ${review.nombre_usuario}`} className="review-foto" />
+                                <h3>{ review.nombre_usuario }</h3>
+                            </div>
+                            <p className="puntuacion"><strong>Puntuación:</strong> { review.puntuacion }/5 ⭐</p>
+                                <p>{ review.texto }</p>
+                        </div>
+                    ) }
                 </div>
             </section>
         </section>
