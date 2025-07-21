@@ -62,8 +62,6 @@ export default function ReviewsCrear(){
                                 .catch((error) => {
                                     setMensaje("Error al conectar con el servidor");
                                 });
-
-                                console.log("Reseña publicada 2")
                             }}>
                                 <div className="review-rating">
                                     <label>

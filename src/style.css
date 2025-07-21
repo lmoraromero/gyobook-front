@@ -163,8 +163,9 @@ body{
     background-color: var(--color-boton-fondo-hover);
 }
 
-.galeria {
-    margin-left: 20px; 
+.galeria{
+    overflow: hidden;
+    width: 95%;
 }
 
 .galeria-titulo{
@@ -176,26 +177,45 @@ body{
     font-weight: bold;
 }
 
-.galeria-portadas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+.galeria-portadas{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
     gap: 16px;
-    padding: 20px 0;
-    justify-items: center;
+    padding: 20px;
+    animation: carrusel 50s linear infinite;
+    width: max-content; 
+}
+
+.galeria-portadas:hover {
+    animation-play-state: paused;
 }
 
 .portada-libro{
-    height: 180px;
+    flex-shrink: 0;
+    width: 140px;
+    height: 200px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 .portada-libro:hover{
     transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
+
+@keyframes carrusel{
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
 
 
 
@@ -629,6 +649,7 @@ body{
 }
 
 .review{
+    width: 650px;
     margin-bottom: 24px;
     padding: 12px 20px;
     background-color: rgba(221, 208, 236, 0.5);
@@ -735,7 +756,6 @@ body{
     background-color: #f0eaff;
 }
 
-/* Botón Publicar ocupa todo el ancho */
 .review-submit{
     width: 100%;
     padding: 14px 0;

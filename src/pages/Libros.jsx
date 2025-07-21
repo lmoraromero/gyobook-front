@@ -9,6 +9,7 @@ export default function Libros(){
     let navigate = useNavigate()
 
     let [libros, setLibros] = useState([])
+    let [texto, setTexto] = useState("")
     let [mensaje, setMensaje] = useState("")
 
     useEffect(() => {
@@ -28,8 +29,29 @@ export default function Libros(){
                     <section className="contenido libros-contenido">
                         <h2 className="titulo-libros">Explora libros</h2>
                         <div className="buscar-libros">
-                            <form className="form-buscar">
-                                <input type="text" placeholder="¿Buscas algo en concreto?" />
+                            <form className="form-buscar" onSubmit={ evento => {
+                                evento.preventDefault()
+
+                                if(!texto.trim()) return
+                                
+                                let params = new URLSearchParams({ texto })
+
+                                fetch(`http://localhost:4000/busqueda?${params.toString()}`)
+                                .then(respuesta => respuesta.json())
+                                .then(resultados => {
+                                    if(resultados.length == 0){
+                                        setTexto("")
+                                        setLibros([])
+                                    }else{
+                                        setLibros([])
+                                        setLibros(resultados)
+                                    }
+                                })
+                                .catch(() => {
+                                    setMensaje("No se pudieron cargar los libros, inténtalo más tarde 😪")
+                                })
+                            }} >
+                                <input type="text" placeholder="¿No encuentras lo que buscas? Explora y déjate sorprender ✨" value={texto}  onChange={ evento => setTexto(evento.target.value) } />
                                 <input type="submit" value="Buscar" />
                             </form>
                         </div>
