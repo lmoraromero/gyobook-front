@@ -26,7 +26,6 @@ export default function ReviewsLibro(){
         fetch(`http://localhost:4000/reviews/${id_libro}`)
         .then(respuesta => respuesta.json())
         .then(data =>{
-            console.log("Datos reviews recibidos:", data);
             setReviews(data)
         })
         .catch(() => {

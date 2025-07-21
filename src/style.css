@@ -163,14 +163,41 @@ body{
     background-color: var(--color-boton-fondo-hover);
 }
 
+.galeria {
+    margin-left: 20px; 
+}
+
 .galeria-titulo{
     text-align: left;
     margin-left: 20px;
     margin-bottom: 12px; 
     color: var(--color-secundario);
     font-size: 1em;
-    font-weight: 700;
+    font-weight: bold;
 }
+
+.galeria-portadas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    padding: 20px 0;
+    justify-items: center;
+}
+
+.portada-libro{
+    height: 180px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portada-libro:hover{
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+
 
 /*FORMULARIOS DE RESGISTRO Y LOGIN*/
 
