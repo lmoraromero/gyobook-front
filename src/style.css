@@ -97,6 +97,10 @@ body{
     color: var(--color-fondo);
 }
 
+.hamburguesa {
+    display: none; 
+}
+
 /*INICIO*/
 
 .presentacion{
@@ -206,18 +210,6 @@ body{
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
-
-@keyframes carrusel{
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-
-
 
 /*FORMULARIOS DE RESGISTRO Y LOGIN*/
 
@@ -774,11 +766,67 @@ body{
     background-color: var(--color-boton-fondo-hover);
 }
 
+/*MIS RESEÑAS*/
 
+.titulo-usuario{
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 50px;
+    margin-bottom: 12px; 
+    color: var(--color-secundario);
+    font-size: 1.5em;
+    font-weight: bold;
+}
 
+.lista-reviews-usuario{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.review-usuario{
+    width: 700px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background-color: rgba(221, 208, 236, 0.5); /* parecido a tus reviews */
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(101, 63, 143, 0.15);
+    text-align: left;
+}
 
+.portada-mini{
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
 
+.info-review{
+    flex: 1;
+    font-family: 'Comfortaa', cursive;
+    color: var(--color-texto);
+}
+
+.info-review h3{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    color: var(--color-secundario);
+}
+
+.info-review p{
+    margin: 5px 0;
+    line-height: 1.3;
+    color: var(--color-texto);
+}
 
 
 /*KEYFRAMES*/
@@ -791,5 +839,152 @@ body{
     75%  { transform: translate(-2px, 0) rotate(-3deg); }
     100% { transform: translate(0, 0)   rotate(0deg);  }
 }
+
+
+@keyframes carrusel{
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
+/*MEDIA QUERIES*/
+
+/*Diseño tablet (768px - 1024px)*/
+
+@media (max-width: 1024px) and (min-width: 768px){
+    
+    .navegacion{
+        width: 160px;
+        padding: 15px 8px;
+    }
+
+    .navegacion .logo{
+        width: 120px;
+        margin-bottom: 20px;
+    }
+
+    .navegacion a{
+        font-size: 20px;
+    }
+
+    .contenido{
+        width: calc(100% - 160px); 
+        padding: 10px;
+    }
+
+    .presentacion h1{
+        font-size: 2.4em;
+    }
+
+    .presentacion p{
+        font-size: 0.95em;
+    }
+
+    .form-buscar input[type="text"]{
+        font-size: 0.95em;
+        padding: 8px 12px;
+    }
+
+    .form-buscar input[type="submit"]{
+        font-size: 1em;
+        padding: 10px 16px;
+    }
+
+    .portada-libro{
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+    }
+
+    .tarjeta-libro {
+        width: 170px;
+        align-items: center;
+    }
+
+    .info-libro h3{
+        font-size: 18px;
+    }
+
+    .info-libro{
+        font-size: 14px;
+    }
+
+    .picture{
+        width: 120px;
+        height: 120px;
+    }
+
+    .saludo{
+        font-size: 1.6em;
+    }
+
+    .logout{
+        font-size: 1em;
+        padding: 10px 30px;
+    }
+
+    .review{
+        width: 90%;
+    }
+
+    .review-usuario{
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .portada-mini{
+        width: 80px;
+        height: 110px;
+    }
+
+    .libro-ficha{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .portada{
+        width: 220px;
+        height: 330px;
+    }
+
+    .review-textarea{
+        font-size: 1em;
+        padding: 12px 16px;
+    }
+
+    .formulario input[type="text"],
+    .formulario input[type="password"]{
+        font-size: 1em;
+    }
+
+    .formulario input[type="submit"]{
+        font-size: 1em;
+        padding: 12px 0;
+    }
+
+    .review-submit{
+        font-size: 1em;
+        padding: 12px 0;
+    }
+
+    .titulo-libros,
+    .titulo-usuario{
+        font-size: 1.4em;
+        margin-left: 20px;
+    }
+
+    .ficha{
+        padding-top: 100px;
+    }
+}
+
+/*Diseño móvil max. 767*/
+
+
 
 
