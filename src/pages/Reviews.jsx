@@ -16,7 +16,7 @@ export default function Reviews(){
         setLoading(true)
         setMensaje("")
 
-        fetch(`http://localhost:4000/reviews/usuario/${usuario.id}`)
+        fetch(`https://gyobook-api.onrender.com/reviews/usuario/${usuario.id}`)
         .then(respuesta => respuesta.json())
         .then(data => {
             setReviewsUsuario(data)
@@ -45,7 +45,7 @@ export default function Reviews(){
                                 !loading && reviewsUsuario.map(review => (
                                     <div key={review.id} className="review-usuario">
                                         <img
-                                            src={`http://localhost:4000/${review.url_portada}`}
+                                            src={`https://gyobook-api.onrender.com/${review.url_portada}`}
                                             alt={`Portada de ${review.titulo}`}
                                             className="portada-mini"
                                         />

@@ -16,7 +16,7 @@ export default function ReviewsCrear(){
     let [mensaje, setMensaje] = useState("")
 
     useEffect(() => {
-        fetch(`http://localhost:4000/libro/${id_libro}`)
+        fetch(`https://gyobook-api.onrender.com/libro/${id_libro}`)
         .then(respuesta => respuesta.json())
         .then(libroData => {
             setLibro(libroData[0]) 
@@ -39,7 +39,7 @@ export default function ReviewsCrear(){
 
                                 let puntuacionFinal = parseFloat(`${puntuacion}.${decimal}`) //transformar en float la puntuación 
 
-                                fetch("http://localhost:4000/reviews/nueva", {
+                                fetch("https://gyobook-api.onrender.com/reviews/nueva", {
                                     method : "POST",
                                     body : JSON.stringify({
                                         puntuacion : puntuacionFinal,

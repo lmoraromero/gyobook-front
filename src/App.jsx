@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Contexto from "./Contexto"
 import "./style.css"
@@ -64,12 +64,19 @@ export default function App() {
   let [usuario, setUsuario] = useState(null)
   let [libros, setLibros] = useState([])
   let [hasLibros, setHasLibros] = useState(false)
-  let [reviewsUsuario, setReviewsUsuario] = useState([])
-  let [hasReviews, setHasReviews] = useState(false)
+
+  //Cargar el token y usuario desde localstorage
+
+  useEffect(() => {
+    let tokenGuardado = localStorage.getItem("token")
+    let usuarioGuardado = localStorage.getItem("usuario")
+
+    if(tokenGuardado) setToken(tokenGuardado)
+    if(usuarioGuardado) setUsuario(JSON.parse(usuarioGuardado))
+  }, [])
 
 
-  return <Contexto.Provider value={{token, setToken, usuario, setUsuario, libros, setLibros, hasLibros, setHasLibros, reviewsUsuario, setReviewsUsuario,
-    hasReviews, setHasReviews}}>
+  return <Contexto.Provider value={{token, setToken, usuario, setUsuario, libros, setLibros, hasLibros, setHasLibros}}>
             <RouterProvider router={router} />
           </Contexto.Provider>
 }

@@ -13,7 +13,7 @@ export default function Inicio(){
 
     useEffect(() => {
         if(!hasLibros){
-            fetch("http://localhost:4000/libros")
+            fetch("https://gyobook-api.onrender.com/libros")
             .then(respuesta => respuesta.json())
             .then(libros => {
                 setLibros(libros)
@@ -42,7 +42,7 @@ export default function Inicio(){
                                 {
                                     [...ultimosLibros, ...ultimosLibros].map((libro, index) => (
                                         <Link key={`libro-${index}-${libro.id}`} to={`/reviews/${libro.id}`} className="portada-link" > 
-                                        <img src={"http://localhost:4000/" + libro.url_portada} alt={`Portada de ${libro.titulo}`} className="portada-libro" />
+                                        <img src={"https://gyobook-api.onrender.com/" + libro.url_portada} alt={`Portada de ${libro.titulo}`} className="portada-libro" />
                                         </Link>
                                     ))
                                 }

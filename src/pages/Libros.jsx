@@ -15,7 +15,7 @@ export default function Libros(){
 
     useEffect(() => {
         if(!hasLibros){
-            fetch("http://localhost:4000/libros")
+            fetch("https://gyobook-api.onrender.com/libros")
             .then(respuesta => respuesta.json())
             .then(libros => {
                 setLibros(libros)
@@ -44,7 +44,7 @@ export default function Libros(){
                                 
                                 let params = new URLSearchParams({ texto })
 
-                                fetch(`http://localhost:4000/busqueda?${params.toString()}`)
+                                fetch(`https://gyobook-api.onrender.com/busqueda?${params.toString()}`)
                                 .then(respuesta => respuesta.json())
                                 .then(resultados => {
                                     if(resultados.length == 0){
@@ -80,7 +80,7 @@ export default function Libros(){
                                 <li>Actualmente no hay libros en la base de datos :(</li> :
                                 (buscando ? librosBuscados : libros).map(({ id, titulo, autor, paginas, genero, url_portada }) => (
                                     <li key={id} className="tarjeta-libro" onClick={() => navigate(`/reviews/${id}`)}>
-                                        <img src={"http://localhost:4000/" + url_portada} alt={`Portada de ${ titulo }`} className="portada-libro" />
+                                        <img src={"https://gyobook-api.onrender.com/" + url_portada} alt={`Portada de ${ titulo }`} className="portada-libro" />
                                         <div className="info-libro">
                                             <h3>{ titulo }</h3>
                                             <p><strong>Autor: </strong>{ autor }</p>

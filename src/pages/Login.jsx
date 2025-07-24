@@ -20,7 +20,7 @@ export default function Login(){
                     <form className="formulario" onSubmit={evento => {
                         evento.preventDefault()
                         
-                        fetch("http://localhost:4000/login", {
+                        fetch("https://gyobook-api.onrender.com/login", {
                             method: "POST", 
                             body : JSON.stringify({
                                 usuario : inputUsuario,

@@ -20,7 +20,7 @@ export default function Registro(){
                     <form className="formulario" onSubmit={evento => {
                         evento.preventDefault()
                         
-                        fetch("http://localhost:4000/registro", {
+                        fetch("https://gyobook-api.onrender.com/registro", {
                             method : "POST",
                             body : JSON.stringify({
                                 usuario : inputUsuario,

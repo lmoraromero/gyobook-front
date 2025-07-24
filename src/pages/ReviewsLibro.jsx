@@ -18,11 +18,11 @@ export default function ReviewsLibro(){
         setLoading(true)
         setMensaje("")
         
-        fetch(`http://localhost:4000/libro/${id_libro}`)
+        fetch(`https://gyobook-api.onrender.com/libro/${id_libro}`)
         .then(respuesta => respuesta.json())
         .then(libroData => {
             setLibro(libroData[0]) //al traer un array hay que seleccionar el primero(aunque sea único)
-            return fetch(`http://localhost:4000/reviews/${id_libro}`)
+            return fetch(`https://gyobook-api.onrender.com/reviews/${id_libro}`)
         })
         .then(respuesta => respuesta.json())
         .then(data =>{
@@ -54,7 +54,7 @@ export default function ReviewsLibro(){
                     {!loading && libro && (
                         <div className="libro-ficha">
                             <img 
-                                src={"http://localhost:4000/" + libro.url_portada}
+                                src={"https://gyobook-api.onrender.com/" + libro.url_portada}
                                 alt={`Portada del libro ${libro.titulo}`} 
                                 className="portada" 
                             />
