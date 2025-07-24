@@ -985,6 +985,149 @@ body{
 
 /*Diseño móvil max. 767*/
 
+@media (max-width: 767px) {
+
+    .contenedor{
+        flex-direction: column;
+    }
+
+    .navegacion{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--color-principal);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1;
+    }
+
+    .hamburguesa{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 8px;
+        padding: 4px 8px;
+        background: none;
+        border: none;
+        font-size: 3em;
+        color: #f7a1c4;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .navegacion ul{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navegacion.activo{
+        transform: translateX(0%);
+    }
+
+    .navegacion .logo{
+        display: none;
+    }
+
+    .contenido{
+        width: 100%;
+        padding: 20px;
+        justify-content: center;
+    }
+
+    .presentacion h1{
+        font-size: 3em;
+    }
+
+    .presentacion p{
+        font-size: 1.6em;
+        margin-bottom: 40px;
+    }
+
+    .galeria-titulo{
+        font-size: 1.2em;
+        margin-bottom: 40px;
+    }
+
+    .form-buscar input[type="text"]{
+        font-size: 0.9em;
+    }
+
+    .form-buscar input[type="submit"]{
+        font-size: 1em;
+        padding: 10px 16px;
+    }
+
+    .galeria-portadas{
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .buscar-libros{
+        margin-top: 180px;
+    }
+
+    .portada-libro{
+        width: 100%;
+        height: 250px;
+    }
+
+    .tarjeta-libro{
+        width: 45%;
+    }
+
+    .review{
+        width: 400px;
+        box-sizing: border-box;
+    }
+
+    .review-usuario{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .review-usuario .portada-mini{
+        width: 130px;
+        height: auto;
+        margin-bottom: 12px;
+    }
+
+    .libro-ficha{
+        margin-top: 60px;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .portada{
+        width: 180px;
+        height: auto;
+    }
+
+    .formulario input[type="text"],
+    .formulario input[type="password"],
+    .formulario input[type="submit"]{
+        font-size: 1em;
+    }
+
+    .review-box{
+        padding: 20px;
+    }
+
+    .ficha{
+        width: 90%;
+    }
+}
 
 
 

@@ -7,14 +7,15 @@ export default function Navegacion() {
     let [menuAbierto, setMenuAbierto] = useState(false)
 
     return <>
-        <nav className="navegacion">
+        <button className="hamburguesa" onClick={() => {
+        setMenuAbierto(!menuAbierto)
+        }}>
+        &#9776;
+        </button>
+
+        <nav className={menuAbierto ? "navegacion activo" : "navegacion"} >
             <img src="/Gyobook.png" alt="Gyobook logo" className="logo" />
-            <button className="hamburguesa" onClick={() => {
-                setMenuAbierto(!menuAbierto)
-                }}>
-                &#9776;
-            </button>
-        <ul className={menuAbierto ? "activo" : ""}>
+        <ul>
             <li><Link to="/" onClick={() => setMenuAbierto(false)}>Inicio</Link></li>
             {
                 token ? 
