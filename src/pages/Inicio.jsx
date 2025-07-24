@@ -1,25 +1,31 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { Link } from "react-router-dom"
 import Navegacion from "./Navegacion"
+import Contexto from "../Contexto"
 
 
 export default function Inicio(){
 
+    let {libros, setLibros, hasLibros, setHasLibros} = useContext(Contexto)
 
-    let [ultimosLibros, setUltimosLibros] = useState([])
     let [mensaje, setMensaje] = useState("")
 
+
     useEffect(() => {
-        fetch("http://localhost:4000/libros")
-        .then(respuesta => respuesta.json())
-        .then(libros => {
-            let ultimos = libros.slice(0,10)
-            setUltimosLibros(ultimos)
-        })
-        .catch(error => {
-            setMensaje("Error al conectar con el servidor")
-        })
+        if(!hasLibros){
+            fetch("http://localhost:4000/libros")
+            .then(respuesta => respuesta.json())
+            .then(libros => {
+                setLibros(libros)
+                setHasLibros(true)
+            })
+            .catch(error => {
+                setMensaje("Error al conectar con el servidor")
+            })
+        }
     }, [])
+
+    let ultimosLibros = libros.slice(0, 10);
 
     return <>
                 <section className="contenedor">

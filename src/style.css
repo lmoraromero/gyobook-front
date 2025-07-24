@@ -683,6 +683,15 @@ body{
     line-height: 1.4;
 }
 
+.mensaje-cargando{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-principal); /* #a992ca */
+    text-align: center;
+    margin: 20px 0;
+    animation: pulsar 1.5s infinite ease-in-out;
+}
+
 /*CREAR RESEÑA*/
 
 .review-box{
@@ -847,6 +856,15 @@ body{
     }
     100% {
         transform: translateX(-50%);
+    }
+}
+
+@keyframes pulsar{
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
     }
 }
 

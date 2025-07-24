@@ -62,8 +62,14 @@ export default function App() {
 
   let [token, setToken] = useState("")
   let [usuario, setUsuario] = useState(null)
+  let [libros, setLibros] = useState([])
+  let [hasLibros, setHasLibros] = useState(false)
+  let [reviewsUsuario, setReviewsUsuario] = useState([])
+  let [hasReviews, setHasReviews] = useState(false)
 
-  return <Contexto.Provider value={{token, setToken, usuario, setUsuario}}>
+
+  return <Contexto.Provider value={{token, setToken, usuario, setUsuario, libros, setLibros, hasLibros, setHasLibros, reviewsUsuario, setReviewsUsuario,
+    hasReviews, setHasReviews}}>
             <RouterProvider router={router} />
           </Contexto.Provider>
 }

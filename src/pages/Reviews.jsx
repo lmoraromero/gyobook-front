@@ -6,17 +6,25 @@ export default function Reviews(){
 
     let {usuario} = useContext(Contexto)
 
-    let [reviews, setReviews] = useState([])
+
+    let [reviewsUsuario, setReviewsUsuario] = useState([]);
     let [mensaje, setMensaje] = useState("")
+    let [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
+        setLoading(true)
+        setMensaje("")
+
         fetch(`http://localhost:4000/reviews/usuario/${usuario.id}`)
         .then(respuesta => respuesta.json())
         .then(data => {
-            setReviews(data)
+            setReviewsUsuario(data)
+            setLoading(false)
         })
         .catch(() => {
             setMensaje("No se pudieron cargar las reseñas, inténtalo más tarde 😪")
+            setLoading(false)
         })
     }, [])
 
@@ -28,11 +36,13 @@ export default function Reviews(){
 
                         {mensaje && <p className="mensaje">{mensaje}</p>}
 
+                        {loading && !mensaje && <p className="mensaje-cargando">Cargando reseñas...</p>}
+
                         {
-                        reviews.length == 0 ? <p>Aún no hay reseñas. ¡Empieza a explorar y a escribir! ✨</p> : 
+                        !loading && reviewsUsuario.length == 0 ? <p>Aún no hay reseñas. ¡Empieza a explorar y a escribir! ✨</p> : 
                         <div className="lista-reviews-usuario">
                             {
-                                reviews.map(review => (
+                                !loading && reviewsUsuario.map(review => (
                                     <div key={review.id} className="review-usuario">
                                         <img
                                             src={`http://localhost:4000/${review.url_portada}`}

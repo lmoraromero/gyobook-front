@@ -10,26 +10,28 @@ export default function ReviewsLibro(){
 
     let {id_libro} = useParams();
     let [libro, setLibro] = useState(null);
+    let [reviewsLibro, setReviewsLibro] = useState([])
+    let [loading, setLoading] = useState(true)
     let [mensaje, setMensaje] = useState("")
-    let [reviews, setReviews] = useState([])
 
     useEffect(() => {
+        setLoading(true)
+        setMensaje("")
+        
         fetch(`http://localhost:4000/libro/${id_libro}`)
         .then(respuesta => respuesta.json())
         .then(libroData => {
             setLibro(libroData[0]) //al traer un array hay que seleccionar el primero(aunque sea único)
+            return fetch(`http://localhost:4000/reviews/${id_libro}`)
+        })
+        .then(respuesta => respuesta.json())
+        .then(data =>{
+            setReviewsLibro(data)
+            setLoading(false)
         })
         .catch(() => {
             setMensaje("No se pudo cargar el libro, inténtalo más tarde 😪")
-        })
-
-        fetch(`http://localhost:4000/reviews/${id_libro}`)
-        .then(respuesta => respuesta.json())
-        .then(data =>{
-            setReviews(data)
-        })
-        .catch(() => {
-            setMensaje("No se pudieron cargar las reseñas, inténtalo más tarde 😪")
+            setLoading(false)
         })
     }, [])
 
@@ -38,7 +40,7 @@ export default function ReviewsLibro(){
     //hacer la media para ver la punuación media del libro. 
     //.reduce() sirve para acumular un valor a partir de lso elementos de un array -> suma es el acumulador (por defecto inicia en 0) y review es cada una de las reseñas
     //.toFixed(2) convierte el resultado en un número con dos decimales
-    let mediaPuntuacion = reviews.length > 0 ? (reviews.reduce((suma, review) => suma + parseFloat(review.puntuacion), 0) / reviews.length).toFixed(2) : null 
+    let mediaPuntuacion = reviewsLibro.length > 0 ? (reviewsLibro.reduce((suma, review) => suma + parseFloat(review.puntuacion), 0) / reviewsLibro.length).toFixed(2) : null 
 
     return <>
         <section className="contenedor reviewslibro">
@@ -46,7 +48,10 @@ export default function ReviewsLibro(){
             <section className="contenido">
                 <div className="libro">
                     {mensaje && <p className="mensaje">{ mensaje }</p>}
-                    {libro && (
+
+                    {loading && !mensaje && <p className="mensaje-cargando">Cargando libro y reseñas...</p>}
+
+                    {!loading && libro && (
                         <div className="libro-ficha">
                             <img 
                                 src={"http://localhost:4000/" + libro.url_portada}
@@ -65,7 +70,7 @@ export default function ReviewsLibro(){
                     )}
                 </div>
                 <div className="media">
-                    { mediaPuntuacion && (
+                    {!loading && mediaPuntuacion && (
                     <div className="media-puntuacion">
                         <h2>Puntuación media: {mediaPuntuacion} / 5 ⭐</h2>
                     </div>
@@ -73,14 +78,14 @@ export default function ReviewsLibro(){
                 </div>
                 <div className="reviews">
                     {
-                        token && (
+                        !loading && token && (
                             <button className="addReview" onClick={() => {
                                 navigate(`/reviews/crear/${id_libro}`)
                             }}>Añadir reseña</button>
                         )
                     }
-                    { reviews.length == 0 ? <p>Actualmente no hay reseñas</p> :
-                    reviews.map(review => 
+                    {!loading && reviewsLibro.length == 0 ? <p>Actualmente no hay reseñas</p> :
+                    reviewsLibro.map(review => 
                         <div key={review.id} className="review">
                             <div className="cabecera">
                                 <img src={review.perfil} alt={`Foto de perfil de ${review.nombre_usuario}`} className="review-foto" />

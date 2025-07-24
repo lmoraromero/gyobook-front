@@ -5,22 +5,26 @@ import Navegacion from "./Navegacion"
 
 export default function Libros(){
 
-    let {token} = useContext(Contexto)
+    let {token, libros, setLibros, hasLibros, setHasLibros} = useContext(Contexto)
     let navigate = useNavigate()
 
-    let [libros, setLibros] = useState([])
+    let [librosBuscados, setLibrosBuscados] = useState([]) // libros para búsqueda local
+    let [buscando, setBuscando] = useState(false)
     let [texto, setTexto] = useState("")
     let [mensaje, setMensaje] = useState("")
 
     useEffect(() => {
-        fetch("http://localhost:4000/libros")
-        .then(respuesta => respuesta.json())
-        .then(libros => {
-            setLibros(libros)
-        })
-        .catch(() => {
-            setMensaje("No se pudieron cargar los libros, inténtalo más tarde 😪")
-        })
+        if(!hasLibros){
+            fetch("http://localhost:4000/libros")
+            .then(respuesta => respuesta.json())
+            .then(libros => {
+                setLibros(libros)
+                setHasLibros(true)
+            })
+            .catch(() => {
+                setMensaje("No se pudieron cargar los libros, inténtalo más tarde 😪")
+            })
+        }
     }, [])
 
     return <>
@@ -32,7 +36,11 @@ export default function Libros(){
                             <form className="form-buscar" onSubmit={ evento => {
                                 evento.preventDefault()
 
-                                if(!texto.trim()) return
+                                if(!texto.trim()){
+                                    setBuscando(false)
+                                    setLibrosBuscados([])
+                                    return
+                                }
                                 
                                 let params = new URLSearchParams({ texto })
 
@@ -41,10 +49,12 @@ export default function Libros(){
                                 .then(resultados => {
                                     if(resultados.length == 0){
                                         setTexto("")
-                                        setLibros([])
+                                        setLibrosBuscados([])
+                                        setBuscando(false)
                                     }else{
-                                        setLibros([])
-                                        setLibros(resultados)
+                                        setLibrosBuscados([])
+                                        setLibrosBuscados(resultados)
+                                        setBuscando(true)
                                     }
                                 })
                                 .catch(() => {
@@ -66,8 +76,9 @@ export default function Libros(){
                         <div className="libros">
                             <ul>
                             {
-                                libros.length == 0 ? <li>Actualmente no hay libros en la base de datos :(</li> :
-                                libros.map(({ id, titulo, autor, paginas, genero, url_portada }) => (
+                                (buscando ? librosBuscados : libros).length == 0 ? 
+                                <li>Actualmente no hay libros en la base de datos :(</li> :
+                                (buscando ? librosBuscados : libros).map(({ id, titulo, autor, paginas, genero, url_portada }) => (
                                     <li key={id} className="tarjeta-libro" onClick={() => navigate(`/reviews/${id}`)}>
                                         <img src={"http://localhost:4000/" + url_portada} alt={`Portada de ${ titulo }`} className="portada-libro" />
                                         <div className="info-libro">
