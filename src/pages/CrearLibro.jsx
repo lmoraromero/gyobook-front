@@ -58,7 +58,7 @@ export default function CrearLibro(){
                                 datos.append("portada", portada)
 
                                 //fetch
-                                fetch("http://localhost:4000/libro/nuevo", {
+                                fetch("https://gyobook-api.onrender.com/libro/nuevo", {
                                     method: "POST",
                                     body: datos,
                                     headers: {
