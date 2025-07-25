@@ -42,7 +42,7 @@ export default function Inicio(){
                                 {
                                     [...ultimosLibros, ...ultimosLibros].map((libro, index) => (
                                         <Link key={`libro-${index}-${libro.id}`} to={`/reviews/${libro.id}`} className="portada-link" > 
-                                        <img src={"https://gyobook-api.onrender.com/" + libro.url_portada} alt={`Portada de ${libro.titulo}`} className="portada-libro" />
+                                        <img src={libro.url_portada} alt={`Portada de ${libro.titulo}`} className="portada-libro" />
                                         </Link>
                                     ))
                                 }

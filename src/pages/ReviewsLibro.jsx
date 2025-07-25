@@ -54,7 +54,7 @@ export default function ReviewsLibro(){
                     {!loading && libro && (
                         <div className="libro-ficha">
                             <img 
-                                src={"https://gyobook-api.onrender.com/" + libro.url_portada}
+                                src={libro.url_portada}
                                 alt={`Portada del libro ${libro.titulo}`} 
                                 className="portada" 
                             />

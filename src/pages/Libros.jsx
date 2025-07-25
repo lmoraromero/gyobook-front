@@ -80,7 +80,7 @@ export default function Libros(){
                                 <li>Actualmente no hay libros en la base de datos :(</li> :
                                 (buscando ? librosBuscados : libros).map(({ id, titulo, autor, paginas, genero, url_portada }) => (
                                     <li key={id} className="tarjeta-libro" onClick={() => navigate(`/reviews/${id}`)}>
-                                        <img src={"https://gyobook-api.onrender.com/" + url_portada} alt={`Portada de ${ titulo }`} className="portada-libro" />
+                                        <img src={url_portada} alt={`Portada de ${ titulo }`} className="portada-libro" />
                                         <div className="info-libro">
                                             <h3>{ titulo }</h3>
                                             <p><strong>Autor: </strong>{ autor }</p>

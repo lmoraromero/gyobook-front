@@ -45,7 +45,7 @@ export default function Reviews(){
                                 !loading && reviewsUsuario.map(review => (
                                     <div key={review.id} className="review-usuario">
                                         <img
-                                            src={`https://gyobook-api.onrender.com/${review.url_portada}`}
+                                            src={review.url_portada}
                                             alt={`Portada de ${review.titulo}`}
                                             className="portada-mini"
                                         />
