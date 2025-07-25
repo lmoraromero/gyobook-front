@@ -6,7 +6,7 @@ import Contexto from "../Contexto"
 export default function Registro(){
 
     let navigate = useNavigate()
-    let { setToken } = useContext(Contexto)
+    let { setToken, setUsuario } = useContext(Contexto)
 
     let [inputUsuario, setInputUsuario] = useState("")
     let [inputPassword, setInputPassword] = useState("")
@@ -42,8 +42,9 @@ export default function Registro(){
                             return respuesta.json()
                             
                         })
-                        .then(({token}) => {
+                        .then(({token, usuario}) => {
                             setToken(token)
+                            setUsuario(usuario)
                             navigate("/")
                         })
                     }}>
