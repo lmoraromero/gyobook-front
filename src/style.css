@@ -1003,7 +1003,7 @@ body{
 
 /*Diseño móvil max. 767*/
 
-@media (max-width: 767px) {
+@media (max-width: 767px) and (max-height: 1000px) {
 
     .contenedor{
         flex-direction: column;
@@ -1090,7 +1090,7 @@ body{
     }
 
     .buscar-libros{
-        margin-top: 180px;
+        margin-top: 30px;
     }
 
     .portada-libro{
@@ -1103,7 +1103,7 @@ body{
     }
 
     .review{
-        width: 400px;
+        width: 350px;
         box-sizing: border-box;
     }
 
@@ -1144,6 +1144,11 @@ body{
 
     .ficha{
         width: 90%;
+    }
+
+    .libros-contenido {
+    justify-content: flex-start;
+    padding-top: 30px;
     }
 }
 
