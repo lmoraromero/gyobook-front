@@ -42,7 +42,11 @@ export default function Registro(){
                             return respuesta.json()
                             
                         })
-                        .then(({token, usuario}) => {
+                        .then(datos => {
+                            if (!datos) return;
+
+                            let {token, usuario} = datos
+
                             setToken(token)
                             setUsuario(usuario)
                             navigate("/")
