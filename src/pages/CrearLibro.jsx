@@ -5,7 +5,7 @@ import Contexto from "../Contexto"
 
 export default function CrearLibro(){
 
-    let {token} = useContext(Contexto)
+    let {token, setHasLibros} = useContext(Contexto)
     let navigate = useNavigate()
 
     let [mensaje, setMensaje] = useState("")
@@ -69,6 +69,7 @@ export default function CrearLibro(){
                                     if(respuesta.status == 201){
                                         return respuesta.json()
                                         .then(({id}) => {
+                                            setHasLibros(false)
                                             navigate(`/reviews/${id}`)
                                         })
                                     } else if(respuesta.status == 400){
