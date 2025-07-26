@@ -7,7 +7,7 @@
 
 ## 1. Introducción ✍️
 
-Gyobook Frontend es una aplicación web desarrollada con **React** y **Vite** diseñada para ofrecer a los usuarios una plataforma donde descubrir libros, leer y escribir reseñas, y compartir experiencias literarias.. Está diseñada para consumir la API REST de Gyobook, ofreciendo una interfaz intuitiva, responsivE y segura para interactuar con la plataforma. 
+Gyobook Frontend es una aplicación web desarrollada con **React** y **Vite** diseñada para ofrecer a los usuarios una plataforma donde descubrir libros, leer y escribir reseñas, y compartir experiencias literarias. Está diseñada para consumir la API REST de Gyobook, ofreciendo una interfaz intuitiva, responsive y segura para interactuar con la plataforma. 
 
 Este frontend incluye funcionalidades como autenticación de usuarios, creación y búsqueda de libros y publicación de reseñas.
 
