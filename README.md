@@ -1,6 +1,9 @@
 # Gyobook Frontend 📚✨
 
-![Logo Gyobook](./assets/Gyobook.png)
+<p align="center">
+  <img src="./public/Gyobook.png" alt="Gyobook Logo" width="150" />
+</p>
+
 
 ## 1. Introducción ✍️
 
