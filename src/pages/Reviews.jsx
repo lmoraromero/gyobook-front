@@ -1,30 +1,42 @@
+/*
+Componente Reviews.jsx
+
+Página que muestra todas las reseñas creadas por el usuario.
+Al cargar, realiza una petición GET al back para obtener todas sus reseñas (mediante id del usuario).
+Muestra un mensaje si hay un error o si el usuario aún no ha escrito reseñas.
+Aparece un mensaje de carga mientras se cargan los datos.
+Cada reseña incluye la portada del libro, título, autor y puntuación dada por el usuario. 
+
+*/
+
 import { useContext, useEffect, useState } from "react"
 import Navegacion from "./Navegacion"
 import Contexto from "../Contexto"
 
 export default function Reviews(){
 
+    //Obtener usuario desde el contexto
     let {usuario} = useContext(Contexto)
 
-
+    //Estados locales para guardar reseñas y estado de carga
     let [reviewsUsuario, setReviewsUsuario] = useState([]);
     let [mensaje, setMensaje] = useState("")
     let [loading, setLoading] = useState(true)
 
-
+    //Petición al back para obtener las reseñas del usuario una vez se entra en el componente
     useEffect(() => {
-        setLoading(true)
+        setLoading(true) //se activa la carga
         setMensaje("")
 
         fetch(`https://gyobook-api.onrender.com/reviews/usuario/${usuario.id}`)
         .then(respuesta => respuesta.json())
         .then(data => {
-            setReviewsUsuario(data)
-            setLoading(false)
+            setReviewsUsuario(data) //guardar las reseñas
+            setLoading(false) //para la carga
         })
         .catch(() => {
             setMensaje("No se pudieron cargar las reseñas, inténtalo más tarde 😪")
-            setLoading(false)
+            setLoading(false) //para la carga
         })
     }, [])
 

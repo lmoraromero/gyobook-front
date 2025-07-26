@@ -1,3 +1,13 @@
+/*
+Componente Inicio.jsx
+
+Página principal de la App.
+Muesra una presentación de la web, una galería con las últimas 10 portadas de libros creados.
+También obtiene la lista de ñibros desde la API y actualiza el estado global usando el contexto.
+maneja errores en al conexión con el servidor. 
+
+*/
+
 import { useEffect, useState, useContext } from "react"
 import { Link } from "react-router-dom"
 import Navegacion from "./Navegacion"
@@ -6,18 +16,19 @@ import Contexto from "../Contexto"
 
 export default function Inicio(){
 
+    //Extrae los libros y el estado del contexto para saber si están caragdos
     let {libros, setLibros, hasLibros, setHasLibros} = useContext(Contexto)
 
     let [mensaje, setMensaje] = useState("")
 
-
+    //cargar los libros si no están caragdos aún
     useEffect(() => {
         if(!hasLibros){
             fetch("https://gyobook-api.onrender.com/libros")
             .then(respuesta => respuesta.json())
             .then(libros => {
-                setLibros(libros)
-                setHasLibros(true)
+                setLibros(libros) //se guardan los libros en el contexto
+                setHasLibros(true) //guarda que los libros se han cargado
             })
             .catch(error => {
                 setMensaje("Error al conectar con el servidor")
@@ -25,6 +36,7 @@ export default function Inicio(){
         }
     }, [])
 
+    //Guarda los primeros 10 libros para la aglería
     let ultimosLibros = libros.slice(0, 10);
 
     return <>

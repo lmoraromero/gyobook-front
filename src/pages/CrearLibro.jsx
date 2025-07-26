@@ -1,3 +1,23 @@
+/*
+Componente CrearLibro.jsx
+
+Permite a usuarios autenticados crear una nueva ficha de libro.
+Incluye un formulario con los campos:
+    - título
+    - autor
+    - género
+    - fecha de publicación
+    - número de páginas
+    - sinopsis
+    - portada (como imagen)
+
+Antes de enviar el formulario valida que los campos estén completos y con el formato correcto.
+Envía los datos al back mediante una petición POST con token JWT.
+Si se ha creado correctamente, redirige a la página del libro (ReviewsLibro.jsx).
+Muestra mensajes en caso de errores o datos no válidos.
+
+*/
+
 import { useNavigate} from "react-router-dom"
 import { useState, useContext } from "react"
 import Navegacion from "./Navegacion"
@@ -5,9 +25,13 @@ import Contexto from "../Contexto"
 
 export default function CrearLibro(){
 
+    //Se extrae el token y setHasLibros del contexto global para la autenticación y la recarga de los libros
     let {token, setHasLibros} = useContext(Contexto)
+
+    //Para navegar entre rutas
     let navigate = useNavigate()
 
+    //Declaración de estados locales para manejar los valores del formulario y mensajes
     let [mensaje, setMensaje] = useState("")
     let [titulo, setTitulo] = useState("")
     let [autor, setAutor] = useState("")
@@ -15,7 +39,7 @@ export default function CrearLibro(){
     let [fecha, setFecha] = useState("")
     let [paginas, setPaginas] = useState("")
     let [sinopsis, setSinopsis] = useState("")
-    let [portada, setPortada] = useState(null)
+    let [portada, setPortada] = useState(null) //archivo de imagen seleccionado
 
     return <>
                 <section className="contenedor">
@@ -46,8 +70,7 @@ export default function CrearLibro(){
                                     return
                                 }
 
-                                //FormData
-
+                                //crear objeto Formdata para enviar datos con imagen
                                 let datos = new FormData()
                                 datos.append("titulo", titulo)
                                 datos.append("autor", autor)
@@ -57,7 +80,7 @@ export default function CrearLibro(){
                                 datos.append("sinopsis", sinopsis)
                                 datos.append("portada", portada)
 
-                                //fetch
+                                //enviar petición POST al back para crear el libro
                                 fetch("https://gyobook-api.onrender.com/libro/nuevo", {
                                     method: "POST",
                                     body: datos,
@@ -69,8 +92,8 @@ export default function CrearLibro(){
                                     if(respuesta.status == 201){
                                         return respuesta.json()
                                         .then(({id}) => {
-                                            setHasLibros(false)
-                                            navigate(`/reviews/${id}`)
+                                            setHasLibros(false) //indica que la lista de libros se tiene que actualizar
+                                            navigate(`/reviews/${id}`) //redirección a la página de la reseña del libro
                                         })
                                     } else if(respuesta.status == 400){
                                         setMensaje("🚨 Rellena todos los campos de la ficha.")

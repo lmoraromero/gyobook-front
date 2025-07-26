@@ -1,3 +1,12 @@
+/*
+Componente ReviewsCrear.jsx
+
+Permite al usuario crear una nueva reseña para un libro en concreto.
+Muestra el formualrio con puntuación (incluyendo decimales) y el texto. Envía la reseña a la API mediante POST.
+Si es exitosa al piublicación, se redirige a la página de reseñas del libro (ReviewsLibro.jsx)
+
+*/
+
 import { useNavigate, useParams } from "react-router-dom"
 import { useState, useContext, useEffect } from "react"
 import Navegacion from "./Navegacion"
@@ -5,21 +14,26 @@ import Contexto from "../Contexto"
 
 export default function ReviewsCrear(){
 
+    //Obtener el token y usuario del contexto
     let {token, usuario} = useContext(Contexto)
     let navigate = useNavigate()
 
+    //Extrae el id del libro de la url
     let {id_libro} = useParams()
+
+    //Estados locales
     let [libro, setLibro] = useState(null)
     let [puntuacion, setPuntuacion] = useState("1")
     let [decimal, setDecimal] = useState("00")
     let [texto, setTexto] = useState("")
     let [mensaje, setMensaje] = useState("")
 
+    //Fetch de los datos del libro
     useEffect(() => {
         fetch(`https://gyobook-api.onrender.com/libro/${id_libro}`)
         .then(respuesta => respuesta.json())
         .then(libroData => {
-            setLibro(libroData[0]) 
+            setLibro(libroData[0]) //guarda datos del libro
         })
         .catch(() => {
             setMensaje("No se pudo cargar el libro, inténtalo más tarde 😪")
@@ -37,8 +51,10 @@ export default function ReviewsCrear(){
                             <form className="review-form" onSubmit={evento => {
                                 evento.preventDefault()
 
+                                //combinar la puntuación como número decimal (float)
                                 let puntuacionFinal = parseFloat(`${puntuacion}.${decimal}`) //transformar en float la puntuación 
 
+                                //envía la reseña a la API mediante POST
                                 fetch("https://gyobook-api.onrender.com/reviews/nueva", {
                                     method : "POST",
                                     body : JSON.stringify({
@@ -54,7 +70,7 @@ export default function ReviewsCrear(){
                                 })
                                 .then(respuesta => {
                                     if(respuesta.status == 201){
-                                        navigate(`/reviews/${id_libro}`)
+                                        navigate(`/reviews/${id_libro}`) //redirección al libro
                                     }else{
                                         setMensaje("Error inesperado. Inténtalo más tarde")
                                     }

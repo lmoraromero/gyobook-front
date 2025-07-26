@@ -1,3 +1,11 @@
+/*
+Componente Error404.jsx
+
+Muestra una página de error 404 cuando el usuario navega a una ruta inexistente.
+Incluye un enlace para volver a la página principal (Inicio.jsx)
+
+*/
+
 import { Link } from "react-router-dom"
 import "./Error404.css"
 

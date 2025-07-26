@@ -15,6 +15,9 @@ import ReviewsLibro from "./pages/ReviewsLibro"
 import ReviewsCrear from './pages/ReviewsCrear'
 import Error404 from "./pages/Error404"
 
+
+//Definición de rutas con React Router 
+
 const router = createBrowserRouter([
   {
     path : "/",
@@ -54,19 +57,24 @@ const router = createBrowserRouter([
   },
   {
     path : "*",
-    element : <Error404 />,
+    element : <Error404 />, //Ruta para páginas no encontradas
   }
 ])
 
 export default function App() {
+
+  //Definimos el estado para: 
+  //Almacenar el token JWT del usuario
+  //Los datos del usuario (como objeto o null)
+  //Lista de libros que se recibirá desde el back
+  //Estado para saber si hay libros cargados (con boolean)
 
   let [token, setToken] = useState("")
   let [usuario, setUsuario] = useState(null)
   let [libros, setLibros] = useState([])
   let [hasLibros, setHasLibros] = useState(false)
 
-  //Cargar el token y usuario desde localstorage
-
+  //Cargar el token y usuario guardados desde localstorage
   useEffect(() => {
     let tokenGuardado = localStorage.getItem("token")
     let usuarioGuardado = localStorage.getItem("usuario")
@@ -75,7 +83,8 @@ export default function App() {
     if(usuarioGuardado) setUsuario(JSON.parse(usuarioGuardado))
   }, [])
 
-
+  //Contexto para proveer los estados de forma global en la app
+  //RouterProvider renderiza las rutas definidas
   return <Contexto.Provider value={{token, setToken, usuario, setUsuario, libros, setLibros, hasLibros, setHasLibros}}>
             <RouterProvider router={router} />
           </Contexto.Provider>

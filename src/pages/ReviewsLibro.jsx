@@ -1,3 +1,14 @@
+/*
+Componente ReviewsLibro.jsx
+
+Muestra la ficha completa de un libro junto con todas las reseñas publicadas sobre el libro.
+Carga los datos del libro y las reseñas desde la API.
+Calcula y muestra la puntuación media del libro.
+Permite al usuario añadir una nueva reseña con un botón que redirige a (ReviewsCrear.jsx), sólo si el usuario está autenticado
+Mensaje de carga y error.
+
+*/
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react"
 import Navegacion from "./Navegacion"
@@ -5,33 +16,37 @@ import Contexto from "../Contexto"
 
 export default function ReviewsLibro(){
 
+    //Obtener el token desde el contexto
     let {token} = useContext(Contexto)
     let navigate = useNavigate()
 
+    //Obtener el id del libro desde la url
     let {id_libro} = useParams();
+
+    //Estados locales
     let [libro, setLibro] = useState(null);
     let [reviewsLibro, setReviewsLibro] = useState([])
     let [loading, setLoading] = useState(true)
     let [mensaje, setMensaje] = useState("")
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(true) //activa la carga
         setMensaje("")
         
         fetch(`https://gyobook-api.onrender.com/libro/${id_libro}`)
         .then(respuesta => respuesta.json())
         .then(libroData => {
             setLibro(libroData[0]) //al traer un array hay que seleccionar el primero(aunque sea único)
-            return fetch(`https://gyobook-api.onrender.com/reviews/${id_libro}`)
+            return fetch(`https://gyobook-api.onrender.com/reviews/${id_libro}`) //fetch de las reseñas 
         })
         .then(respuesta => respuesta.json())
         .then(data =>{
-            setReviewsLibro(data)
-            setLoading(false)
+            setReviewsLibro(data) //guarda las reselñas
+            setLoading(false) //para la carga
         })
         .catch(() => {
             setMensaje("No se pudo cargar el libro, inténtalo más tarde 😪")
-            setLoading(false)
+            setLoading(false) //para la carga
         })
     }, [])
 
